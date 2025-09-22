@@ -20,24 +20,33 @@ public class MemberEntity {
     @Column(name = "password", length = 20, nullable = false)
     private String password;
 
-    @Column(name = "role_id", nullable = false)
-    private int roleID;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private RoleEntity roleEntity;
 
     public MemberEntity() {
     }
 
-    public MemberEntity(String name, String email, String password, int roleID) {
+    public MemberEntity(String email, String name, String password, RoleEntity roleEntity) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.roleEntity = roleEntity;
+    }
+
+    public MemberEntity(Long id, String name, String email, String password, RoleEntity roleEntity) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.roleID = roleID;
+        this.roleEntity = roleEntity;
     }
 
     public MemberEntity(MemberEntity memberEntity) {
         this.name = memberEntity.getName();
         this.email = memberEntity.getEmail();
         this.password = memberEntity.getPassword();
-        this.roleID = memberEntity.getRoleID();
+        this.roleEntity = memberEntity.getRoleEntity();
     }
 
     public Long getId() {
@@ -72,11 +81,11 @@ public class MemberEntity {
         this.password = password;
     }
 
-    public int getRoleID() {
-        return roleID;
+    public RoleEntity getRoleEntity() {
+        return roleEntity;
     }
 
-    public void setRoleID(int roleID) {
-        this.roleID = roleID;
+    public void setRoleEntity(RoleEntity roleEntity) {
+        this.roleEntity = roleEntity;
     }
 }

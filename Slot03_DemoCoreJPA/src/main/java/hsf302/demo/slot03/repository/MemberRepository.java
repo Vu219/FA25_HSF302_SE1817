@@ -6,4 +6,7 @@ import java.lang.reflect.Member;
 
 public interface MemberRepository {
     public boolean addMember(MemberEntity member);
+    public boolean removeMember(MemberEntity member);
+    public MemberEntity getMemberById(MemberEntity member);
+    public boolean updateMember(MemberEntity member);
 }

@@ -15,4 +15,19 @@ public class MemberServiceImpl implements MemberService {
     public boolean addMember(MemberEntity member) {
         return memberRepository.addMember(member);
     }
+
+    @Override
+    public boolean removeMember(MemberEntity member) {
+        return memberRepository.removeMember(member);
+    }
+
+    @Override
+    public MemberEntity getMemberById(MemberEntity member) {
+        return memberRepository.getMemberById(member);
+    }
+
+    @Override
+    public boolean updateMember(MemberEntity member) {
+        return memberRepository.updateMember(member);
+    }
 }

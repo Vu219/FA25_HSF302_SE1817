@@ -29,4 +29,38 @@ public class MemberDAO {
             return false;
         }
     }
+
+    public boolean removeMember(MemberEntity member) {
+        try {
+            em.getTransaction().begin();
+            em.remove(member);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public MemberEntity getMemberById(MemberEntity member) {
+        return em.find(MemberEntity.class, member.getId());
+    }
+
+    public boolean updateMember(MemberEntity member) {
+        try {
+            em.getTransaction().begin();
+            em.merge(member);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -13,4 +13,19 @@ public class MemberRepositoryImpl implements MemberRepository {
     public boolean addMember(MemberEntity member) {
         return memberDAO.addMember(member);
     }
+
+    @Override
+    public boolean removeMember(MemberEntity member) {
+        return memberDAO.removeMember(member);
+    }
+
+    @Override
+    public MemberEntity getMemberById(MemberEntity member) {
+        return memberDAO.getMemberById(member);
+    }
+
+    @Override
+    public boolean updateMember(MemberEntity member) {
+        return memberDAO.updateMember(member);
+    }
 }
