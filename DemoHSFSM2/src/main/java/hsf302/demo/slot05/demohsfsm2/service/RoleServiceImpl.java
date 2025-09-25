@@ -12,7 +12,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public boolean addRole(Role role) {
-        return roleRepository.addRole(role);
+        return roleRepository.save(role) != null;
     }
 
     @Override

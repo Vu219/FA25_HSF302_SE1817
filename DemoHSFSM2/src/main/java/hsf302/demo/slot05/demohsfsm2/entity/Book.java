@@ -17,13 +17,13 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BookID")
-    private int BookID;
+    private int bookID;
 
     @Column(name = "Title", nullable = false, length = 100)
-    private String Title;
+    private String title;
 
     @Column(name = "ISBN", nullable = false, length = 100)
-    private String ISBN;
+    private String iSBN;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserID", nullable = false)

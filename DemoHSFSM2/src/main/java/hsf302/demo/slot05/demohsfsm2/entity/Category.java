@@ -17,11 +17,11 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CategoryID")
-    private int CategoryID;
+    private int categoryID;
 
     @Column(name = "Category_Name", nullable = false, length = 100)
-    private String Category_Name;
+    private String category_Name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<Book>();
 }

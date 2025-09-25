@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,11 +17,11 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RoleID")
-    private int RoleID;
+    private int roleID;
 
     @Column(name = "RoleName", nullable = false, length = 20, unique = true)
     private String roleName;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 }
