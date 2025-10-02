@@ -30,13 +30,13 @@ public class DataInitializer implements CommandLineRunner {
         if(userService.getUser("admin", "admin") == null) {
             User user = new User();
             Role userRole = roleService.findByRoleName("admin");
-            user.setUserName("admin");
+            user.setUsername("admin");
             user.setPassword("admin");
             user.setRole(userRole);
             userService.addUser(user);
 
             User user1 = new User();
-            user1.setUserName("user");
+            user1.setUsername("user");
             user1.setPassword("user");
             user1.setRole(roleService.findByRoleName("user"));
             userService.addUser(user1);
