@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -52,6 +54,25 @@ public class UserController {
     @GetMapping("/deleteuser/{id}")
     public String deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
+        return "redirect:/user";
+    }
+
+    @GetMapping("/edituser/{id}")
+    public ModelAndView showEditUserPage(@PathVariable int id) {
+        User user = userService.getUserById(id);
+        List<Role> roles = roleService.getAllRoles();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("roles", roles);
+        modelAndView.setViewName("edituser");
+        return modelAndView;
+    }
+
+    @PostMapping("/edituser")
+    public String editUser(User user, @RequestParam("roleID") int roleId) {
+        Optional<Role> role = roleService.getRoleById(roleId);
+        user.setRole(role.get());
+        userService.updateUser(user.getUserID(), user);
         return "redirect:/user";
     }
 }

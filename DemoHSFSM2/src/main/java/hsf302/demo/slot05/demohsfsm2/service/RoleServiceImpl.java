@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -26,6 +27,11 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> getAllRoles() {
         List<Role> roles = roleRepository.findAll();
         return roles;
+    }
+
+    @Override
+    public Optional<Role> getRoleById(int roleId) {
+        return  roleRepository.findById(roleId);
     }
 
 }

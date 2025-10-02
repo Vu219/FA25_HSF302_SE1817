@@ -22,7 +22,7 @@
         <td th:text="${user.username}"></td>
         <td th:text="${user.password}"></td>
         <td>
-            <a th:href="@{'/edituser' + ${user.userID}}">Edit</a>
+            <a th:href="@{'/edituser/' + ${user.userID}}">Edit</a>
             <a th:href="@{'/deleteuser/' + ${user.userID}}"
             onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
         </td>
