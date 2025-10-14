@@ -10,6 +10,8 @@
     <div>
         <label for="username">Username:</label>
         <input type="text" id="username" th:field="*{username}" required>
+        <span class="error-message" th:if="${#fields.hasErrors('username')}"
+              th:errors="*{username}" style="color: red"></span>
     </div>
     <div>
         <label for="password">Password:</label>
@@ -17,7 +19,7 @@
     </div>
     <div>
         <lable for="role">Role:</lable>
-        <select id="role" th:field="*{role}">
+        <select id="role" th:field="*{role}" required>
             <option value="">Select Role</option>
             <option th:each="role : ${roles}"
                     th:value="${role.roleID}"

@@ -1,6 +1,8 @@
 package hsf302.demo.slot05.demohsfsm2.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +21,12 @@ public class User {
     @Column(name = "UserID")
     private int userID;
 
+    @NotBlank(message = "Username is required")
+    @Size(min = 5, max = 50, message = "Username must be between 5 - 50 characters")
     @Column(name = "Username", nullable = false, length = 50, unique = true)
     private String username;
 
+    @NotBlank(message = "Password is required")
     @Column(name = "Password", nullable = false, length = 100)
     private  String password;
 

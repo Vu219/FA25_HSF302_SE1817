@@ -4,14 +4,14 @@ import hsf302.demo.slot05.demohsfsm2.entity.Role;
 import hsf302.demo.slot05.demohsfsm2.entity.User;
 import hsf302.demo.slot05.demohsfsm2.service.RoleService;
 import hsf302.demo.slot05.demohsfsm2.service.UserService;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/createuser")
-    public ModelAndView createUserPage() {
+    public ModelAndView showCreateUserPage() {
         List<Role> roles = roleService.getAllRoles();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", new User());
@@ -46,7 +46,22 @@ public class UserController {
     }
 
     @PostMapping("/createuser")
-    public String createUser(User user) {
+    public String createUser(HttpSession session, @Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()) {
+            List<Role> roles = roleService.getAllRoles();
+            model.addAttribute("roles", roles);
+            return "createuser";
+        }
+
+        if (user.getRole() != null && user.getRole().getRoleID() > 0) {
+            Role role = roleService.getRoleById(user.getRole().getRoleID()).orElse(null);
+            user.setRole(role);
+        } else {
+            Role defaultRole = roleService.findByRoleName("user");
+            user.setRole(defaultRole);
+        }
+
         userService.addUser(user);
         return "redirect:/user";
     }

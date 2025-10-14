@@ -21,6 +21,11 @@ public class LoginController {
         return "403";
     }
 
+    @GetMapping("/")
+    public String rootRedirect() {
+        return "redirect:/home";
+    }
+
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
@@ -33,6 +38,6 @@ public class LoginController {
             return "redirect:/login?error"; // Redirect back to login page with error
         }
         session.setAttribute("user", user);
-        return "redirect:/home"; // Redirect to home page after successful login
+        return "redirect:/user"; // Redirect to home page after successful login
     }
 }
