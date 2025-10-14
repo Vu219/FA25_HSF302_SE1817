@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sony Management Page</title>
+</head>
+<body>
+<h1>Product Management</h1>
+<div th:if="${userRole == 1}">
+    <button><a th:href="@{'/createProduct'}">Create Product</a></button>
+</div>
+
+<div>
+    <a th:href="@{/logout}">Logout</a>
+</div>
+
+<table>
+    <thead>
+    <th>ProductID</th>
+    <th>ProductName</th>
+    <th>Price</th>
+    <th>Stock</th>
+    <th>CreatedAt</th>
+    <th>CateName</th>
+    <th th:if="${userRole == 1}">Actions</th>
+    </thead>
+
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.productID}"></td>
+        <td th:text="${product.productName}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.stock}"></td>
+        <td th:text="${product.createdAt}"></td>
+        <td>
+            <span th:if="${product.category != null}" th:text="${product.category.cateName}"></span>
+            <span th:if="${product.category == null}" style="color: red;">No Category</span>
+        </td>
+        <td th:if="${userRole == 1}">
+            <a class="action-btn delete-btn" th:href="@{'/deleteProduct/' + ${product.productID}}"
+               onclick="return confirm('Are you sure you want to delete this Sony Product?')">Delete</a> |
+            <a class="action-btn edit-btn" th:href="@{'/editProduct/' + ${product.productID}}">Edit</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
