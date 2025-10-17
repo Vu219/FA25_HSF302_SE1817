@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,6 +43,7 @@ public class SonyProducts {
     @NotNull(message = "Category is required")
     @ManyToOne
     @JoinColumn(name = "CateID", nullable = false)
+    @ToString.Exclude
     private SonyCategories category;
 
     @PrePersist

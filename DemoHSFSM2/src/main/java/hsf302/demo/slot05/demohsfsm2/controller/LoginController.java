@@ -23,7 +23,7 @@ public class LoginController {
 
     @GetMapping("/")
     public String rootRedirect() {
-        return "redirect:/home";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")

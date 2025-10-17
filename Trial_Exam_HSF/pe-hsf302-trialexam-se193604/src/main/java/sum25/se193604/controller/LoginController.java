@@ -20,7 +20,15 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String showLoginForm() {
+    public String showLoginForm(HttpSession session) {
+        SonyAccounts sonyAccounts = (SonyAccounts) session.getAttribute("sonyAccounts");
+        if (sonyAccounts != null) {
+            if (sonyAccounts.getRoleID() == 1 || sonyAccounts.getRoleID() == 2) {
+                return "redirect:/product";
+            } else {
+                return "redirect:/403";
+            }
+        }
         return "login";
     }
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Sony Product</title>
+</head>
+<body>
+<h1>Edit Product</h1>
+<form th:action="@{/editProduct}" th:object="${product}" method="post">
+
+    <input type="hidden" th:field="*{productID}"/>
+
+    <div class="form-group">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" th:field="*{productName}" required>
+        <span th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" th:field="*{price}" required>
+        <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" th:field="*{stock}" required>
+        <span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="category.cateID">Category:</label>
+        <select id="category.cateID" th:field="*{category.cateID}" required>
+            <option value="">Select Category</option>
+            <option th:each="category : ${categories}"
+                    th:value="${category.cateID}"
+                    th:text="${category.cateName}"
+                    th:selected="${product.category != null && product.category.cateID == category.cateID}">
+            </option>
+        </select>
+        <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error"></span>
+    </div>
+    <div class="button-group">
+        <button type="submit">Update Product</button>
+        <button type="button" onclick="window.location.href='/product'">Cancel</button>
+    </div>
+</form>
+</body>
+</html>

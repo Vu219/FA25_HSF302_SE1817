@@ -57,9 +57,6 @@ public class UserController {
         if (user.getRole() != null && user.getRole().getRoleID() > 0) {
             Role role = roleService.getRoleById(user.getRole().getRoleID()).orElse(null);
             user.setRole(role);
-        } else {
-            Role defaultRole = roleService.findByRoleName("user");
-            user.setRole(defaultRole);
         }
 
         userService.addUser(user);

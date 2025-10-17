@@ -18,6 +18,8 @@ import sum25.se193604.service.SonyCategoriesService;
 import sum25.se193604.service.SonyProductsService;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Controller
 @RequiredArgsConstructor
@@ -43,6 +45,20 @@ public class ProductController {
 
         modelAndView.addObject("products", products);
         modelAndView.addObject("userRole", account.getRoleID());
+
+        if(account.getRoleID() == 1) {
+            List<SonyProducts> topProducts = sonyProductsService.getTop3ProductsByCategory();
+            modelAndView.addObject("topProducts", topProducts);
+
+            Set<String> uniqueCategories = new TreeSet<>();
+            for (SonyProducts product : topProducts) {
+                if (product.getCategory() != null) {
+                    uniqueCategories.add(product.getCategory().getCateName());
+                }
+            }
+            modelAndView.addObject("uniqueCategories", uniqueCategories);
+        }
+
         modelAndView.setViewName("product");
         return modelAndView;
     }
@@ -107,6 +123,58 @@ public class ProductController {
         }
 
         sonyProductsService.deleteProduct(productId);
+        return "redirect:/product";
+    }
+
+    @GetMapping("/editProduct/{productId}")
+    public ModelAndView showUpdateProductPage(HttpSession session, @PathVariable("productId") Long productId) {
+        SonyAccounts account = (SonyAccounts) session.getAttribute("sonyAccounts");
+        if(account == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        if(account.getRoleID() != 1) {
+            return new ModelAndView("redirect:/403");
+        }
+
+        SonyProducts product = sonyProductsService.getProductById(productId);
+        if(product == null) {
+            return new ModelAndView("redirect:/product");
+        }
+
+        List<SonyCategories> categories = sonyCategoriesService.getAllCategories();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("product", product);
+        modelAndView.addObject("categories", categories);
+        modelAndView.setViewName("editproduct");
+        return modelAndView;
+    }
+
+    @PostMapping("/editProduct")
+    public String updateProduct(HttpSession session, @Valid @ModelAttribute("product") SonyProducts product, BindingResult bindingResult, Model model) {
+        SonyAccounts account = (SonyAccounts) session.getAttribute("sonyAccounts");
+        if(account == null) {
+            return "redirect:/login";
+        }
+
+        if(account.getRoleID() != 1) {
+            return "redirect:/403";
+        }
+
+        List<SonyCategories> categories = sonyCategoriesService.getAllCategories();
+        model.addAttribute("categories", categories);
+
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("product", product);
+            return "editproduct";
+        }
+
+        if (product.getCategory() != null && product.getCategory().getCateID() > 0) {
+            SonyCategories category = sonyCategoriesService.findSonyCategoriesById(product.getCategory().getCateID());
+            product.setCategory(category);
+        }
+
+        sonyProductsService.updateProduct(product.getProductID(), product);
         return "redirect:/product";
     }
 }
