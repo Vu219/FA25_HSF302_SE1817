@@ -1,40 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout :: html(content=~{::.content-wrapper})">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Sony Product</title>
-    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div class="space-background"></div>
-<div class="sony-watermark">SONY</div>
-<div class="stars">
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-</div>
-
 <div class="content-wrapper">
     <div class="container" style="max-width: 600px;">
         <h1>Edit Product</h1>
@@ -65,8 +37,7 @@
                     <option value="">Select Category</option>
                     <option th:each="category : ${categories}"
                             th:value="${category.cateID}"
-                            th:text="${category.cateName}"
-                            th:selected="${product.category != null && product.category.cateID == category.cateID}">
+                            th:text="${category.cateName}">
                     </option>
                 </select>
                 <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error"></span>

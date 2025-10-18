@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sony Login</title>
+    <title>Sony Management</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -35,26 +35,29 @@
     <div class="shooting-star"></div>
 </div>
 
-<div class="content-wrapper">
-    <div class="container" style="max-width: 500px;">
-        <h1>Login</h1>
-        <form th:action="@{/login}" method="post">
-            <div class="form-group">
-                <label for="phone">Phone:</label>
-                <input type="text" id="phone" name="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="button-group">
-                <button type="submit">Login</button>
-            </div>
-        </form>
+<!-- Header -->
+<header class="sony-header">
+    <div class="header-content">
+        <div class="logo">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTIwIDQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMCAxMEgxNVYzMEgxMFYxMFpNMjUgMTBIMzBWMzBIMjVWMTBaTTQwIDEwSDQ1VjMwSDQwVjEwWk01NSAxMEg2MFYzMEg1NVYxMFpNNzAgMTBINzVWMzBINzBWMTBaTTg1IDEwSDkwVjMwSDg1VjEwWiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=" alt="SONY Logo">
+            <span>Management System</span>
+        </div>
+        <nav class="main-nav" th:if="${session.sonyAccounts != null}">
+            <a href="/product" id="products-link">Products</a>
+        </nav>
+        <div class="user-info" th:if="${session.sonyAccounts != null}">
+            <span th:text="'Welcome, Phone: ' + ${session.sonyAccounts.phone}"></span>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </div>
     </div>
-</div>
+</header>
 
-<!-- Footer cho trang login -->
+<!-- Main Content -->
+<main class="main-content">
+    <div th:replace="${content}"></div>
+</main>
+
+<!-- Footer -->
 <footer class="sony-footer">
     <div class="footer-content">
         <div class="footer-section">
