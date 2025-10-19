@@ -13,4 +13,5 @@ public interface SonyProductsRepository extends JpaRepository<SonyProducts, Long
     public boolean existsByProductName(String name);
     public List<SonyProducts> findAllByOrderByCreatedAtDesc();
     public List<SonyProducts> findTop3ByCategoryOrderByStockDesc(SonyCategories categories);
+    public List<SonyProducts> findByProductNameContainingIgnoreCase(String productName);
 }

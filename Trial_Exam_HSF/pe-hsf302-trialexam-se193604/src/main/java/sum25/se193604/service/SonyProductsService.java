@@ -14,5 +14,6 @@ public interface SonyProductsService {
     public void deleteProduct(Long productId);
     public void updateProduct(Long productId, SonyProducts product);
     public List<SonyProducts> getTop3ProductsByCategory();
+    public List<SonyProducts> searchProducts(String keyword);
 
 }

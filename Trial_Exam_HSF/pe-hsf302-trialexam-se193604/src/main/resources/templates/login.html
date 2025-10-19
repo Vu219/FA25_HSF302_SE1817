@@ -47,6 +47,20 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
+
+            <div th:if="${errorMessage}" class="error-message" style="
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            text-align: center;
+            animation: shake 0.3s ease;
+        ">
+                <span th:text="${errorMessage}"></span>
+            </div>
+
             <div class="button-group">
                 <button type="submit">Login</button>
             </div>
@@ -54,7 +68,6 @@
     </div>
 </div>
 
-<!-- Footer cho trang login -->
 <footer class="sony-footer">
     <div class="footer-content">
         <div class="footer-section">
@@ -79,5 +92,118 @@
         <p>&copy; 2023 Sony Corporation. All rights reserved.</p>
     </div>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const cursor = document.createElement('div');
+        cursor.className = 'cursor-trail';
+        cursor.innerHTML = `
+        <div class="cursor-ring"></div>
+        <div class="cursor-dot"></div>
+    `;
+        document.body.appendChild(cursor);
+
+        const cursorDot = cursor.querySelector('.cursor-dot');
+        const cursorRing = cursor.querySelector('.cursor-ring');
+        const trails = [];
+        const trailCount = 12;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        for (let i = 0; i < trailCount; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'trail';
+            document.body.appendChild(trail);
+            trails.push({
+                element: trail,
+                x: 0,
+                y: 0,
+                size: Math.random() * 4 + 3,
+                delay: i * 0.05
+            });
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+
+        function updateTrails() {
+            trails.forEach((trail, index) => {
+                setTimeout(() => {
+                    trail.element.style.left = (mouseX - trail.size / 2) + 'px';
+                    trail.element.style.top = (mouseY - trail.size / 2) + 'px';
+                    trail.element.style.width = trail.size + 'px';
+                    trail.element.style.height = trail.size + 'px';
+
+                    // Random màu sắc cho trail
+                    const hue = 200 + Math.random() * 40;
+                    trail.element.style.background = `hsl(${hue}, 100%, 60%)`;
+                    trail.element.style.boxShadow = `0 0 8px hsl(${hue}, 100%, 60%), 0 0 12px hsl(${hue}, 100%, 40%)`;
+                }, index * 20);
+            });
+
+            requestAnimationFrame(updateTrails);
+        }
+
+        updateTrails();
+
+        const hoverElements = document.querySelectorAll('button, a, input, select, .action-btn');
+
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor-hover');
+            });
+
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-hover');
+            });
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursorDot.style.transform = 'scale(0.5)';
+            cursorRing.style.transform = 'scale(0.8)';
+
+            createClickEffect(mouseX, mouseY);
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursorDot.style.transform = 'scale(1)';
+            cursorRing.style.transform = 'scale(1)';
+        });
+
+        function createClickEffect(x, y) {
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'trail';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.animation = 'trailFade 0.8s ease-out forwards';
+                document.body.appendChild(particle);
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 50 + 30;
+                const targetX = x + Math.cos(angle) * distance;
+                const targetY = y + Math.sin(angle) * distance;
+
+                particle.animate([
+                    {transform: 'translate(0, 0) scale(1)', opacity: 1},
+                    {transform: `translate(${targetX - x}px, ${targetY - y}px) scale(0)`, opacity: 0}
+                ], {
+                    duration: 800,
+                    easing: 'ease-out'
+                });
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 800);
+            }
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -66,4 +66,9 @@ public class SonyProductsServiceImpl implements SonyProductsService {
         }
         return topList;
     }
+
+    @Override
+    public List<SonyProducts> searchProducts(String keyword) {
+        return sonyProductsRepository.findByProductNameContainingIgnoreCase(keyword);
+    }
 }

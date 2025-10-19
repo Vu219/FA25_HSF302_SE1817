@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sum25.se193604.entity.SonyAccounts;
 import sum25.se193604.entity.SonyCategories;
@@ -176,5 +173,24 @@ public class ProductController {
 
         sonyProductsService.updateProduct(product.getProductID(), product);
         return "redirect:/product";
+    }
+
+    @GetMapping("/product/search")
+    public ModelAndView searchProducts(HttpSession session,
+                                       @RequestParam("keyword") String keyword) {
+        SonyAccounts account = (SonyAccounts) session.getAttribute("sonyAccounts");
+        if(account == null) {
+            return new ModelAndView("redirect:/login");
+        }
+
+        List<SonyProducts> products = sonyProductsService.searchProducts(keyword);
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("products", products);
+        modelAndView.addObject("userRole", account.getRoleID());
+        modelAndView.addObject("searchKeyword", keyword);
+
+        modelAndView.setViewName("product");
+        return modelAndView;
     }
 }

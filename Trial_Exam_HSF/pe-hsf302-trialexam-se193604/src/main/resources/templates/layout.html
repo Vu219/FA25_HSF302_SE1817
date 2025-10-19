@@ -43,7 +43,7 @@
             <span>Management System</span>
         </div>
         <nav class="main-nav" th:if="${session.sonyAccounts != null}">
-            <a href="/product" id="products-link">Products</a>
+            <a href="/product" id="products-link">Home</a>
         </nav>
         <div class="user-info" th:if="${session.sonyAccounts != null}">
             <span th:text="'Welcome, Phone: ' + ${session.sonyAccounts.phone}"></span>
@@ -82,5 +82,126 @@
         <p>&copy; 2023 Sony Corporation. All rights reserved.</p>
     </div>
 </footer>
+
+<script>
+    // Hiệu ứng con trỏ neon với trail
+    document.addEventListener('DOMContentLoaded', function() {
+        const cursor = document.createElement('div');
+        cursor.className = 'cursor-trail';
+        cursor.innerHTML = `
+        <div class="cursor-ring"></div>
+        <div class="cursor-dot"></div>
+    `;
+        document.body.appendChild(cursor);
+
+        const cursorDot = cursor.querySelector('.cursor-dot');
+        const cursorRing = cursor.querySelector('.cursor-ring');
+        const trails = [];
+        const trailCount = 12; // Số lượng trail
+        let mouseX = 0;
+        let mouseY = 0;
+
+        // Tạo các trail element
+        for (let i = 0; i < trailCount; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'trail';
+            document.body.appendChild(trail);
+            trails.push({
+                element: trail,
+                x: 0,
+                y: 0,
+                size: Math.random() * 4 + 3, // Random kích thước trail
+                delay: i * 0.05 // Độ trễ cho mỗi trail
+            });
+        }
+
+        // Di chuyển con trỏ chính
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+
+        // Cập nhật vị trí trail
+        function updateTrails() {
+            trails.forEach((trail, index) => {
+                setTimeout(() => {
+                    trail.element.style.left = (mouseX - trail.size / 2) + 'px';
+                    trail.element.style.top = (mouseY - trail.size / 2) + 'px';
+                    trail.element.style.width = trail.size + 'px';
+                    trail.element.style.height = trail.size + 'px';
+
+                    // Random màu sắc cho trail
+                    const hue = 200 + Math.random() * 40; // Màu xanh ngẫu nhiên
+                    trail.element.style.background = `hsl(${hue}, 100%, 60%)`;
+                    trail.element.style.boxShadow = `0 0 8px hsl(${hue}, 100%, 60%), 0 0 12px hsl(${hue}, 100%, 40%)`;
+                }, index * 20);
+            });
+
+            requestAnimationFrame(updateTrails);
+        }
+
+        updateTrails();
+
+        // Hiệu ứng hover
+        const hoverElements = document.querySelectorAll('button, a, input, select, .action-btn');
+
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor-hover');
+            });
+
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-hover');
+            });
+        });
+
+        // Hiệu ứng click
+        document.addEventListener('mousedown', () => {
+            cursorDot.style.transform = 'scale(0.5)';
+            cursorRing.style.transform = 'scale(0.8)';
+
+            // Hiệu ứng nổ khi click
+            createClickEffect(mouseX, mouseY);
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursorDot.style.transform = 'scale(1)';
+            cursorRing.style.transform = 'scale(1)';
+        });
+
+        // Hiệu ứng nổ khi click
+        function createClickEffect(x, y) {
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'trail';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.animation = 'trailFade 0.8s ease-out forwards';
+                document.body.appendChild(particle);
+
+                // Random hướng bay
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 50 + 30;
+                const targetX = x + Math.cos(angle) * distance;
+                const targetY = y + Math.sin(angle) * distance;
+
+                particle.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { transform: `translate(${targetX - x}px, ${targetY - y}px) scale(0)`, opacity: 0 }
+                ], {
+                    duration: 800,
+                    easing: 'ease-out'
+                });
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 800);
+            }
+        }
+    });
+</script>
 </body>
 </html>

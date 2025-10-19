@@ -182,17 +182,39 @@ body {
 
 .user-info .logout-btn {
     padding: 8px 16px;
-    background: linear-gradient(135deg, #ff0066 0%, #ff6600 100%);
-    color: white;
+    background: rgba(0, 212, 255, 0.1);
+    color: #00d4ff;
     text-decoration: none;
     border-radius: 6px;
     font-size: 0.9em;
     transition: all 0.3s ease;
+    border: 1px solid rgba(0, 212, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.user-info .logout-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff0066 0%, #ff6600 100%);
+    transition: left 0.3s ease;
+    z-index: -1;
 }
 
 .user-info .logout-btn:hover {
+    color: white;
+    border-color: transparent;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 0, 102, 0.4);
+    box-shadow: 0 5px 20px rgba(255, 0, 102, 0.5);
+}
+
+.user-info .logout-btn:hover::before {
+    left: 0;
 }
 
 /* Main Content */
@@ -262,6 +284,81 @@ h2 {
     margin-bottom: 20px;
     font-size: 1.8em;
     text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+/* Search Section Styles */
+.search-section {
+    margin-bottom: 20px;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.search-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.search-form .form-group {
+    margin-bottom: 0 !important;
+}
+
+.search-input-wrapper {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    padding: 6px 12px;
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    border-radius: 6px;
+    font-size: 0.85em;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    transition: all 0.3s ease;
+    height: 34px;
+    min-width: 0;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8em;
+}
+
+.search-btn {
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #0066ff 0%, #00d4ff 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 3px 10px rgba(0, 100, 255, 0.4);
+    height: 34px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.search-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.6);
+}
+
+.search-btn svg {
+    width: 12px;
+    height: 12px;
 }
 
 .form-group {
@@ -419,6 +516,11 @@ th {
     letter-spacing: 0.5px;
 }
 
+/* Căn giữa tiêu đề cột Actions */
+table th:nth-child(7) {
+    text-align: center;
+}
+
 tbody tr {
     background: rgba(255, 255, 255, 0.03);
     transition: all 0.3s ease;
@@ -438,6 +540,11 @@ td {
     padding: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: #e0e0e0;
+}
+
+/* Đảm bảo các cell trong cột Actions căn giữa */
+table td:nth-child(7) {
+    text-align: center;
 }
 
 .top-products-section {
@@ -545,6 +652,115 @@ td {
     display: none;
 }
 
+/* Hiệu ứng con trỏ neon với trail - NeoOn Cursor */
+* {
+    cursor: none;
+}
+
+.cursor-trail {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+}
+
+.cursor-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00d4ff;
+    box-shadow:
+            0 0 10px #00d4ff,
+            0 0 20px #00d4ff,
+            0 0 30px #0066ff;
+    z-index: 10000;
+}
+
+.cursor-ring {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #00d4ff;
+    box-shadow:
+            0 0 10px #00d4ff,
+            0 0 20px #0066ff;
+    animation: cursorRotate 3s linear infinite;
+    z-index: 9999;
+}
+
+.trail {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00d4ff, #0066ff);
+    box-shadow:
+            0 0 8px #00d4ff,
+            0 0 12px #0066ff;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0;
+    animation: trailFade 0.6s ease-out forwards;
+}
+
+@keyframes cursorRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes trailFade {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+/* Hiệu ứng khi hover */
+.cursor-hover .cursor-dot {
+    background: #ff0066;
+    box-shadow:
+            0 0 15px #ff0066,
+            0 0 25px #ff6600;
+    transform: scale(1.5);
+}
+
+.cursor-hover .cursor-ring {
+    border-color: #ff0066;
+    box-shadow:
+            0 0 15px #ff0066,
+            0 0 25px #ff6600;
+    transform: scale(1.2);
+}
+
+/* Các phần tử không nên ẩn con trỏ */
+button,
+a,
+input,
+select,
+textarea,
+.action-btn {
+    cursor: none !important;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .header-content {
@@ -594,5 +810,162 @@ td {
 
     .content-wrapper {
         padding: 120px 15px 30px;
+    }
+
+    /* Responsive cho Search */
+    .search-input-wrapper {
+        flex-direction: row;
+        gap: 6px;
+    }
+
+    .search-input {
+        width: auto;
+        height: 36px;
+    }
+
+    .search-btn {
+        width: auto;
+        height: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-input-wrapper {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .search-input {
+        width: 100%;
+        height: 38px;
+    }
+
+    .search-btn {
+        width: 100%;
+        height: 38px;
+        justify-content: center;
+    }
+}
+
+/* Search Results Info Styles */
+.search-results-info {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(0, 212, 255, 0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.search-found {
+    text-align: center;
+}
+
+.search-not-found {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.search-not-found h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.search-found h3 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+/* Actions Cell Styles */
+.actions-cell {
+    width: 200px;
+    min-width: 200px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.action-btn {
+    padding: 8px 12px !important;
+    font-size: 0.8em !important;
+    border-radius: 6px !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+    border: none;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.action-btn.edit-btn {
+    background: linear-gradient(135deg, #0066ff 0%, #00d4ff 100%) !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(0, 100, 255, 0.3) !important;
+}
+
+.action-btn.edit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.5) !important;
+}
+
+.action-btn.delete-btn {
+    background: linear-gradient(135deg, #ff0066 0%, #ff6600 100%) !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(255, 0, 102, 0.3) !important;
+}
+
+.action-btn.delete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 0, 102, 0.5) !important;
+}
+
+/* Điều chỉnh kích thước cột trong bảng */
+table th:nth-child(7),
+table td:nth-child(7) {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+/* Responsive cho Actions */
+@media (max-width: 768px) {
+    .actions-cell {
+        width: 150px;
+        min-width: 150px;
+    }
+
+    .action-buttons {
+        gap: 6px;
+    }
+
+    .action-btn {
+        padding: 6px 10px !important;
+        font-size: 0.75em !important;
+    }
+
+    table th:nth-child(7),
+    table td:nth-child(7) {
+        width: 150px;
+        min-width: 150px;
+        max-width: 150px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .action-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
