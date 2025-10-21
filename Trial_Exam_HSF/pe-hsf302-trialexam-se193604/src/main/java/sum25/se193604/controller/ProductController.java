@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sum25.se193604.entity.SonyAccounts;
 import sum25.se193604.entity.SonyCategories;
 import sum25.se193604.entity.SonyProducts;
@@ -80,7 +81,7 @@ public class ProductController {
     }
 
     @PostMapping("/createProduct")
-    public String createProduct(HttpSession session, @Valid @ModelAttribute("product") SonyProducts product, BindingResult bindingResult, Model model) {
+    public String createProduct(HttpSession session, @Valid @ModelAttribute("product") SonyProducts product, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         SonyAccounts account = (SonyAccounts) session.getAttribute("sonyAccounts");
         if(account == null) {
             return "redirect:/login";
@@ -104,12 +105,13 @@ public class ProductController {
         }
 
         sonyProductsService.addProduct(product);
+        redirectAttributes.addFlashAttribute("successMessage", "Product created successfully!");
         return "redirect:/product";
     }
 
 
     @GetMapping("/deleteProduct/{productId}")
-    public String deleteProduct(HttpSession session, @PathVariable("productId") Long productId) {
+    public String deleteProduct(HttpSession session, @PathVariable("productId") Long productId, RedirectAttributes redirectAttributes) {
         SonyAccounts account = (SonyAccounts) session.getAttribute("sonyAccounts");
         if(account == null) {
             return "redirect:/login";
@@ -120,6 +122,7 @@ public class ProductController {
         }
 
         sonyProductsService.deleteProduct(productId);
+        redirectAttributes.addFlashAttribute("successMessage", "Product deleted successfully!");
         return "redirect:/product";
     }
 
@@ -148,7 +151,7 @@ public class ProductController {
     }
 
     @PostMapping("/editProduct")
-    public String updateProduct(HttpSession session, @Valid @ModelAttribute("product") SonyProducts product, BindingResult bindingResult, Model model) {
+    public String updateProduct(HttpSession session, @Valid @ModelAttribute("product") SonyProducts product, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         SonyAccounts account = (SonyAccounts) session.getAttribute("sonyAccounts");
         if(account == null) {
             return "redirect:/login";
@@ -172,6 +175,7 @@ public class ProductController {
         }
 
         sonyProductsService.updateProduct(product.getProductID(), product);
+        redirectAttributes.addFlashAttribute("successMessage", "Product updated successfully!");
         return "redirect:/product";
     }
 

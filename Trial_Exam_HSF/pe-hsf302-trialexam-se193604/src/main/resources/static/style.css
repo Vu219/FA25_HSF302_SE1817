@@ -110,10 +110,10 @@ body {
 .shooting-star:nth-child(22) { top: 30%; left: -100px; width: 80px; animation-delay: 5s; animation-duration: 3.5s; }
 .shooting-star:nth-child(23) { top: 50%; left: -100px; width: 120px; animation-delay: 8s; animation-duration: 4.5s; }
 
-/* Header Styles */
+/* Header Styles - Đã chỉnh sửa để mờ hơn */
 .sony-header {
-    background: rgba(10, 10, 30, 0.9);
-    backdrop-filter: blur(10px);
+    background: rgba(10, 10, 30, 0.4); /* Giảm độ đậm */
+    backdrop-filter: blur(25px); /* Tăng độ mờ */
     border-bottom: 1px solid rgba(0, 212, 255, 0.2);
     position: fixed;
     top: 0;
@@ -587,10 +587,10 @@ table td:nth-child(7) {
     box-shadow: 0 8px 25px rgba(0, 255, 136, 0.6);
 }
 
-/* Footer Styles */
+/* Footer Styles - Đã chỉnh sửa để mờ hơn */
 .sony-footer {
-    background: rgba(10, 10, 30, 0.9);
-    backdrop-filter: blur(10px);
+    background: rgba(10, 10, 30, 0.4); /* Giảm độ đậm */
+    backdrop-filter: blur(25px); /* Tăng độ mờ */
     border-top: 1px solid rgba(0, 212, 255, 0.2);
     margin-top: auto;
     width: 100%;
@@ -968,4 +968,345 @@ table td:nth-child(7) {
         width: 100%;
         justify-content: center;
     }
+}
+
+/* ========== LOGIN PAGE STYLES ========== */
+body.login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header login page */
+body.login-page .sony-header {
+    background: rgba(10, 10, 30, 0.4);
+    backdrop-filter: blur(25px);
+    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+body.login-page .header-content {
+    justify-content: center;
+}
+
+body.login-page .logo {
+    flex-direction: row;
+    text-align: center;
+    gap: 15px;
+    align-items: center;
+}
+
+body.login-page .logo span {
+    font-size: 1.5em;
+    font-weight: 700;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+    white-space: nowrap;
+}
+
+/* Main content login page */
+body.login-page .main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+body.login-page .content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 160px);
+    padding: 80px 20px 40px;
+    width: 100%;
+}
+
+body.login-page .container {
+    background: rgba(10, 10, 30, 0.5);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 50px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.7);
+    margin: 0 auto;
+}
+
+body.login-page h1 {
+    font-size: 2.2em;
+    margin-bottom: 40px;
+    text-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+}
+
+/* Form styles login page */
+body.login-page .form-group label {
+    color: #00d4ff;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+    opacity: 0.95;
+}
+
+body.login-page input[type="text"],
+body.login-page input[type="password"] {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(0, 212, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+}
+
+body.login-page input[type="text"]:focus,
+body.login-page input[type="password"]:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #00d4ff;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+}
+
+/* Button styles login page */
+body.login-page button[type="submit"] {
+    background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+    padding: 15px 50px;
+    font-size: 1.1em;
+    box-shadow: 0 5px 25px rgba(0, 255, 136, 0.5);
+    margin-top: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+}
+
+body.login-page button[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 35px rgba(0, 255, 136, 0.7);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Footer login page */
+body.login-page .sony-footer {
+    background: rgba(10, 10, 30, 0.4);
+    backdrop-filter: blur(25px);
+    border-top: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+body.login-page .footer-content {
+    justify-content: center;
+    text-align: center;
+    gap: 50px;
+}
+
+body.login-page .footer-section {
+    flex: 0 1 auto;
+}
+
+body.login-page .footer-section h3,
+body.login-page .footer-section h4 {
+    opacity: 0.9;
+}
+
+body.login-page .footer-section p {
+    opacity: 0.8;
+}
+
+body.login-page .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px 0;
+}
+
+body.login-page .footer-bottom p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9em;
+}
+
+/* Error message styles */
+.error-message {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #ff6b6b;
+    text-align: center;
+    animation: shake 0.3s ease;
+}
+
+/* Responsive cho login page */
+@media (max-width: 768px) {
+    body.login-page .footer-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    body.login-page .content-wrapper {
+        padding: 100px 15px 30px;
+    }
+
+    body.login-page .container {
+        padding: 30px;
+    }
+
+    body.login-page h1 {
+        font-size: 1.8em;
+    }
+
+    body.login-page button[type="submit"] {
+        padding: 12px 30px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    body.login-page .container {
+        padding: 25px 20px;
+        margin: 10px;
+    }
+
+    body.login-page h1 {
+        font-size: 1.6em;
+    }
+
+    body.login-page .logo span {
+        font-size: 1.3em;
+    }
+
+    body.login-page .logo {
+        gap: 10px;
+    }
+
+    body.login-page .logo img {
+        height: 25px;
+    }
+}
+
+/* Success Message Styles */
+.success-message {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #00ff88;
+    text-align: center;
+    animation: slideIn 0.5s ease;
+    font-weight: 500;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Search Section Styles */
+.search-section {
+    margin-bottom: 20px;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.search-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.search-input-wrapper {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    padding: 6px 12px;
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    border-radius: 6px;
+    font-size: 0.85em;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    transition: all 0.3s ease;
+    height: 34px;
+    min-width: 0;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8em;
+}
+
+.search-btn {
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #0066ff 0%, #00d4ff 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 3px 10px rgba(0, 100, 255, 0.4);
+    height: 34px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.search-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.6);
+}
+
+.search-btn svg {
+    width: 12px;
+    height: 12px;
+}
+
+/* Search Results Styles */
+.search-results-info {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(0, 212, 255, 0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.search-found,
+.search-not-found {
+    text-align: center;
+}
+
+.search-found h3,
+.search-not-found h3 {
+    margin-bottom: 10px;
+}
+
+.search-found h3 {
+    color: #00d4ff;
+}
+
+.search-not-found h3 {
+    color: #ff6b6b;
+}
+
+.search-found p,
+.search-not-found p {
+    color: #e0e0e0;
+    font-size: 1.1em;
+}
+
+.search-keyword {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.search-count {
+    color: #00ff88;
+    font-weight: bold;
 }
