@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.BlurType?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.FontWeight?>
+
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="450.0" spacing="25.0"
+      xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/24.0.1"
+      fx:controller="javafx.demojavafxs3.controller.LoginController"
+      stylesheets="@/static/style.css"
+      styleClass="glass-container login-pane">
+    <padding>
+        <Insets bottom="40.0" left="50.0" right="50.0" top="40.0"/>
+    </padding>
+
+    <Label text="ĐĂNG NHẬP HỆ THỐNG" styleClass="label-title" />
+
+    <Label text="HỆ THỐNG QUẢN LÝ SẢN PHẨM SONY"
+           style="-fx-font-size: 18px; -fx-text-fill: #0066CC; -fx-font-weight: bold; -fx-padding: 0 0 20 0;"/>
+
+    <VBox spacing="8.0">
+        <Label text="SỐ ĐIỆN THOẠI" styleClass="label-input"/>
+        <TextField fx:id="txtPhone" promptText="Nhập số điện thoại"/>
+    </VBox>
+
+    <VBox spacing="8.0">
+        <Label text="MẬT KHẨU" styleClass="label-input"/>
+        <PasswordField fx:id="txtPassword" promptText="Nhập mật khẩu"/>
+    </VBox>
+
+    <Label fx:id="messageText" styleClass="label-error" managed="false"/>
+
+    <VBox spacing="12.0" style="-fx-padding: 20 0 0 0;">
+        <Button onAction="#onLoginButtonClick" prefHeight="45.0" maxWidth="Infinity" text="ĐĂNG NHẬP"
+                styleClass="sony-primary-btn"/>
+        <Button onAction="#onCancelClick" prefHeight="45.0" maxWidth="Infinity" text="HỦY BỎ"
+                styleClass="sony-secondary-btn"/>
+    </VBox>
+
+    <Label text="© 2024 Sony Corporation. All rights reserved."
+           style="-fx-font-size: 11px; -fx-text-fill: #666666; -fx-padding: 30 0 0 0;"/>
+</VBox>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox prefHeight="700.0" prefWidth="1000.0" spacing="0"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="javafx.demojavafxs3.controller.ProductController"
+      stylesheets="@/static/style.css"
+      styleClass="glass-container">
+
+    <!-- HEADER -->
+    <HBox styleClass="header" alignment="CENTER" spacing="15.0" style="-fx-background-color: #0066CC; -fx-padding: 15;">
+        <Label text="Sony Product Management System" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lblWelcome" text="Welcome to Sony" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+        <Button mnemonicParsing="false" onAction="#handleLogout" text="Logout"
+                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 5;"/>
+    </HBox>
+
+    <VBox spacing="15.0" style="-fx-padding: 20;">
+        <Label fx:id="lblNotification" visible="false"
+               alignment="CENTER" maxWidth="Infinity"/>
+
+        <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <TextField fx:id="txtSearch" promptText="Search products by name..."
+                       prefWidth="300.0"/>
+            <Button fx:id="btnSearch" text="Search" styleClass="btn-primary"/>
+            <Button fx:id="btnClearSearch" text="Clear" styleClass="btn-secondary"/>
+            <Button fx:id="btnRefresh" text="Refresh" onAction="#handleRefresh"
+                    styleClass="btn-info"/>
+        </HBox>
+
+        <Label fx:id="lblSearchResults" visible="false"
+               alignment="CENTER_LEFT" maxWidth="Infinity"/>
+
+        <AnchorPane fx:id="adminPane" visible="false">
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Button fx:id="btnCreateProduct" mnemonicParsing="false"
+                        onAction="#handleCreateProduct" text="Create New Product"
+                        styleClass="btn-success"/>
+            </HBox>
+        </AnchorPane>
+
+        <SplitPane dividerPositions="0.7" VBox.vgrow="ALWAYS">
+            <VBox spacing="10.0">
+                <Label text="All Products" styleClass="label-section-header"/>
+                <TableView fx:id="productTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ProductID" />
+                        <TableColumn fx:id="colName" text="ProductName" />
+                        <TableColumn fx:id="colPrice" text="Price" />
+                        <TableColumn fx:id="colStock" text="Stock" />
+                        <TableColumn fx:id="colCategory" text="Category" />
+                        <TableColumn fx:id="colCreatedAt" text="CreatedAt" />
+                        <TableColumn fx:id="colActions" text="Actions" />
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <VBox fx:id="topProductsPane" spacing="10.0">
+                <Label text="Top 3 Products by Category" styleClass="label-section-header"/>
+                <TreeView fx:id="topProductsTree" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
+        </SplitPane>
+    </VBox>
+
+    <HBox styleClass="footer" alignment="CENTER" style="-fx-background-color: #f8f9fa; -fx-padding: 10; -fx-border-color: #e9ecef; -fx-border-width: 1 0 0 0;">
+        <Label text="© 2024 Sony Corporation. All rights reserved. | Product Management System v1.0"
+               style="-fx-text-fill: #6c757d; -fx-font-size: 12px;"/>
+    </HBox>
+
+</VBox>
