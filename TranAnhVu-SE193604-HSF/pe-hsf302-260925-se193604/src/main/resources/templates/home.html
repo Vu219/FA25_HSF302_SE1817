@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SE193604 - Rice Management Page</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="content-wrapper">
+    <div class="container">
+        <h1>Rice Management</h1>
+
+        <div th:if="${successMessage}" class="success-message">
+            <span th:text="${successMessage}"></span>
+        </div>
+
+        <div th:if="${accountsRole == 'Admin'}" class="create-btn-wrapper">
+            <button type="button" onclick="window.location.href='/create'">Create Rice</button>
+        </div>
+
+        <h2>All Rice</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>rice_id</th>
+                <th>rice_name</th>
+                <th>price</th>
+                <th>createdAt</th>
+                <th>supplier_name </th>
+                <th th:if="${accountsRole == 'Admin'}">Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="rice : ${rices}">
+                <td th:text="${rice.getRiceId()}"></td>
+                <td th:text="${rice.getRiceName()}"></td>
+                <td th:text="${rice.getPrice()}"></td>
+                <td th:text="${rice.getCreatedAt()}"></td>
+                <td>
+                    <span th:if="${rice.getSuppliers() != null}" th:text="${rice.getSuppliers.supplierName}"></span>
+                    <span th:if="${rice.getSuppliers == null}" >No Suppliers</span>
+                </td>
+
+                <td th:if="${accountsRole == 'Admin'}" class="actions-cell">
+                    <div class="action-buttons">
+                        <a class="action-btn edit-btn" th:href="@{'/update/' + ${rice.getRiceId}}">Edit</a>
+                        <a class="action-btn delete-btn" th:href="@{'/delete/' + ${rice.getRiceId}}"
+                           onclick="return confirm('Are you sure you want to delete this Rices?')">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

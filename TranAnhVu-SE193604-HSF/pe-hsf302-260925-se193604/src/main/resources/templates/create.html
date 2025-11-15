@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SE193604 - Rice Management Page</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="content-wrapper">
+    <div class="container" >
+        <h1>Create Rice</h1>
+        <form th:action="@{/create}" th:object="${rices}" method="post">
+            <div class="form-group">
+                <label for="riceName">Product Name:</label>
+                <input type="text" id="riceName" th:field="*{riceName}" placeholder="Enter Rice Name" required>
+                <span th:if="${#fields.hasErrors('riceName')}" th:errors="*{riceName}" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" id="price" th:field="*{price}" placeholder="Enter price" required>
+                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label for="suppliers">Supplier:</label>
+                <select id="suppliers" th:field="*{suppliers}" required>
+                    <option value="">Select Category</option>
+                    <option th:each="supplier : ${suppliers}"
+                            th:value="${supplier.getSupplierId()}"
+                            th:text="${supplier.getSupplierName()}">
+                    </option>
+                </select>
+                <span th:if="${#fields.hasErrors('suppliers')}" th:errors="*{suppliers}" class="error"></span>
+            </div>
+            <div class="button-group">
+                <button type="submit">Create</button>
+                <button type="button" onclick="window.location.href='/home'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

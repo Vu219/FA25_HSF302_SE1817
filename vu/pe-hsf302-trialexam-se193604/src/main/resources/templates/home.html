@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SE193604 - Sony Management Page</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="content-wrapper">
+    <div class="container">
+        <h1>SonyProduct Management</h1>
+
+        <div th:if="${successMessage}" class="success-message">
+            <span th:text="${successMessage}"></span>
+        </div>
+
+        <div th:if="${SonyAccountsRole == 1}" class="create-btn-wrapper">
+            <button type="button" onclick="window.location.href='/create'">Create Product</button>
+        </div>
+
+        <h2>All Product</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ProductID</th>
+                <th>ProductName</th>
+                <th>price</th>
+                <th>Stock</th>
+                <th>CreatedAt</th>
+                <th>Category Name </th>
+                <th th:if="${SonyAccountsRole == 1}">Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="sonyProduct : ${sonyProducts}">
+                <td th:text="${sonyProduct.getProductID()}"></td>
+                <td th:text="${sonyProduct.getProductName()}"></td>
+                <td th:text="${sonyProduct.price}"></td>
+                <td th:text="${sonyProduct.getStock()}"></td>
+                <td th:text="${sonyProduct.getCreatedAt()}"></td>
+                <td>
+                    <span th:if="${sonyProduct.getSonyCategories != null}" th:text="${sonyProduct.getSonyCategories.cateName}"></span>
+                    <span th:if="${sonyProduct.getSonyCategories == null}" style="color: #ff6b6b;">No Categories</span>
+                </td>
+
+                <td th:if="${SonyAccountsRole == 1}" class="actions-cell">
+                    <div class="action-buttons">
+                        <a class="action-btn edit-btn" th:href="@{'/update/' + ${sonyProduct.getProductID}}">Edit</a>
+                        <a class="action-btn delete-btn" th:href="@{'/delete/' + ${sonyProduct.getProductID}}"
+                           onclick="return confirm('Are you sure you want to delete this sonyProduct Product?')">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

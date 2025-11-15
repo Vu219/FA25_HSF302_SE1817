@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SE193604 - Sony Management Page</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="content-wrapper">
+    <div class="container" >
+        <h1>Create Product</h1>
+        <form th:action="@{/create}" th:object="${sonyProducts}" method="post">
+            <div class="form-group">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" th:field="*{productName}" placeholder="Enter Computer Model" required>
+                <span th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="number" id="price" th:field="*{price}" placeholder="Enter price" required>
+                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error"></span>
+            </div>
+            <div class="form-group">
+                <label for="stock">Stock:</label>
+                <input type="number" id="stock" th:field="*{stock}" placeholder="0" required>
+                <span th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="error"></span>
+            </div>
+<!--            <div class="form-group">-->
+<!--                <label for="createdAt">CreatedAt:</label>-->
+<!--                <input type="date" id="createdAt" th:field="*{createdAt}" placeholder="0" required>-->
+<!--                <span th:if="${#fields.hasErrors('createdAt')}" th:errors="*{createdAt}" class="error"></span>-->
+<!--            </div>-->
+            <div class="form-group">
+                <label for="sonyCategories">Category:</label>
+                <select id="sonyCategories" th:field="*{sonyCategories}" required>
+                    <option value="">Select Category</option>
+                    <option th:each="sonyCategory : ${sonyCategories}"
+                            th:value="${sonyCategory.getCateID()}"
+                            th:text="${sonyCategory.getCateName()}">
+                    </option>
+                </select>
+                <span th:if="${#fields.hasErrors('sonyCategories')}" th:errors="*{sonyCategories}" class="error"></span>
+            </div>
+            <div class="button-group">
+                <button type="submit">Create</button>
+                <button type="button" onclick="window.location.href='/home'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
